@@ -1,0 +1,15 @@
+import os
+import urllib
+import urllib2
+from bs4 import BeautifulSoup
+
+
+
+url = “www.williams.edu”
+html = urllib2.urlopen(url)
+soup = BeautifulSoup(html)
+
+imgs = soup.findAll("div", {"class":"thumb-pic"})
+for img in imgs:
+        imgUrl = img.a['href'].split("imgurl=")[1]
+        urllib.urlretrieve(imgUrl, os.path.basename(imgUrl))
